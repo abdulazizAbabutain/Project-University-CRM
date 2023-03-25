@@ -1,13 +1,9 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using University_CRM.Application.Common.Models;
 
 namespace University_CRM.Application.Features.Collages.AddCollage
 {
-    public class AddCollageCommand : IRequest
+    public class AddCollageCommand : IRequest<CollageDto>
     {
         public string NameArabic { get; set; }
         public string NameEnglish { get; set; }

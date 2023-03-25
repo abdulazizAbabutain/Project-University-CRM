@@ -13,7 +13,7 @@ namespace University_CRM.Infrastructure
         {
             services.AddDbContext<ApplicationContext>(option =>
             {
-                option.UseSqlServer("Server=.;Database=University_CRM;User Id=sa;password=123");
+                option.UseSqlServer("Server=.;Database=University_CRM;Trusted_Connection=True;Encrypt=false;");
             });
 
             services.AddScoped<IRepositoryManager, RepositoryManager>();
