@@ -23,6 +23,15 @@ namespace University_CRM.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy("cros", policy =>
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
+            });
 
             var app = builder.Build();
 
@@ -32,6 +41,8 @@ namespace University_CRM.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
