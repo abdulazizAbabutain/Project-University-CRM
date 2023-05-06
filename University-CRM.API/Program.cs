@@ -1,4 +1,7 @@
 
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using University_CRM.Application;
 using University_CRM.Infrastructure;
 
@@ -19,7 +22,11 @@ namespace University_CRM.API
             builder.Services.AddInfrastrucuteServices(configuration);
             builder.Services.AddApplicationServices();
 
-            builder.Services.AddControllers();
+
+        
+
+            builder.Services.AddControllers().AddNewtonsoftJson();
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -45,7 +52,6 @@ namespace University_CRM.API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

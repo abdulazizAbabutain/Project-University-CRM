@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using University_CRM.Application.Common.Interfaces;
-using University_CRM.Application.Common.Models;
+using University_CRM.Application.Common.Models.CollageModels;
 
 namespace University_CRM.Application.Features.Collages.Queries.GetCollage
 {
@@ -30,11 +30,11 @@ namespace University_CRM.Application.Features.Collages.Queries.GetCollage
                 Id = colMap.CollageId,
                 NameArabic = colMap.NameArabic,
                 NameEnglish = colMap.NameEnglish,
-                DescprtionArabic = colMap.DescriptionArabic,
-                DescprtionEnglish = colMap.DescriptionEnglish,
+                DescriptionArabic = colMap.DescriptionArabic,
+                DescriptionEnglish = colMap.DescriptionEnglish,
 
             }).FirstOrDefault();
-            return collage; 
+            return collage;
         }
     }
 }

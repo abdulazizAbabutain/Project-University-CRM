@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using University_CRM.Application.Common.Interfaces;
+using University_CRM.Application.Common.Models.Common;
 using University_CRM.Infrastructure.Persistence;
 
 namespace University_CRM.Infrastructure.Services
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly ApplicationContext _context;
+        protected readonly ApplicationContext _context;
 
         public GenericRepository(ApplicationContext context)
         {
@@ -21,6 +23,8 @@ namespace University_CRM.Infrastructure.Services
         public void Add(T item)
             => _context.Set<T>().Add(item);
 
+        public Task<int> CountAsync()
+            => _context.Set<T>().CountAsync();
 
         public IQueryable<T> Get(bool trackChanges)
             => trackChanges ?
@@ -32,6 +36,12 @@ namespace University_CRM.Infrastructure.Services
                     _context.Set<T>().Where(func).AsQueryable() :
                     _context.Set<T>().Where(func).AsQueryable().AsNoTracking();
 
+        public async Task<PagedList<T>> PagedList(int pageSize, int pageNumber)
+        {
+            var items = await _context.Set<T>().Skip((pageNumber-1)* pageNumber).Take(pageSize).ToListAsync();
+            var count = await _context.Set<T>().CountAsync();
+            return new PagedList<T>(items, count,pageNumber, pageSize);
+        }
 
         public void Remove(T item)
             => _context.Set<T>().Remove(item);
